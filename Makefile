@@ -27,6 +27,10 @@ build:; forge build
 
 test :; forge test 
 
+coverage :; forge coverage
+
+coverage-debug :; forge coverage --report debug > coverage.txt
+
 snapshot :; forge snapshot
 
 format :; forge fmt
@@ -51,3 +55,10 @@ addConsumer:
 fundSubscription:
 	@forge script script/Interactions.s.sol:FundSubscription $(NETWORK_ARGS)
 
+deploy-sepolia:
+	@forge script script/DeployRaffle.s.sol:DeployRaffle --rpc-url $(SEPOLIA_RPC_URL) --account myaccount --broadcast --verify --etherscan-api-key $(ETHERSCAN_API_KEY) -vvvv
+
+verify-contract-json:
+	@forge verify-contract 0xc714aE67633036A8035992D8CFB7bB884e70f89b src/Raffle.sol:Raffle --etherscan-api-key $(ETHERSCAN_API_KEY) --rpc-url $(SEPOLIA_RPC_URL) --show-standard-json-input >  json.json
+verify-contract:
+	@forge verify-contract --chain-id 11155111 --etherscan-api-key $(ETHERSCAN_API_KEY) 0xc714aE67633036A8035992D8CFB7bB884e70f89b src/Raffle.sol:Raffle --watch

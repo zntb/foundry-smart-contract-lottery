@@ -187,6 +187,12 @@ contract RaffleTest is Test, CodeConstants {
         uint256 currentBalance = 0;
         uint256 numPlayers = 0;
         Raffle.RaffleState rState = raffle.getRaffleState();
+
+        // vm.prank(PLAYER);
+        // raffle.enterRaffle{value: raffleEntranceFee}();
+        // currentBalance = currentBalance + raffleEntranceFee;
+        // numPlayers = 1;
+
         // Act / Assert
         vm.expectRevert(
             abi.encodeWithSelector(
